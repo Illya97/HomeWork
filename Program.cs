@@ -1,28 +1,36 @@
 ﻿using System;
 
-namespace HomeWork2
+namespace HomeWork4_1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int discount = 0;
-            ushort total = 357;
-            if (total >= 500)
+            int[] arr= { 2,2,6,4,4,98,2,2,3,1,1,1,1};
+            int temp = 0;
+            Boolean flag = false;
+            for (int i = 0; i < arr.Length-1; i++)
             {
-                discount = 7;
+                for (int j = 1; j < arr.Length-i; j++)
+                {
+                    flag = false; 
+                    if (arr[j-1] > arr[j])
+                    {
+                        temp = arr[j];
+                        arr[j] = arr[j-1];
+                        arr[j-1] = temp;
+                        flag = true;
+                    }
+                }
+                if (flag == false)
+                {
+                    break;
+                } 
             }
-            else if (total >= 400)
+            for (int i = 0; i < arr.Length; i++)
             {
-                discount = 5;
-
+                Console.WriteLine("b[" + i + "] = " + arr[i]);
             }
-            else if (total >= 300)
-            {
-                discount = 3;
-                
-            }
-            Console.WriteLine("Скидка:" + discount + "; Сума к оплате:" + (total - ((total*discount)/100.00)) + ";");
         }
     }
 }
