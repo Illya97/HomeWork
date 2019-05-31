@@ -1,36 +1,43 @@
 ﻿using System;
 
-namespace HomeWork4_1
+namespace HomeWork4_2
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int[] arr= { 2,2,6,4,4,98,2,2,3,1,1,1,1};
-            int temp = 0;
-            Boolean flag = false;
-            for (int i = 0; i < arr.Length-1; i++)
+            byte[] arr_byte = new byte[10];
+            short[] arr_short = new short[10];
+            int[] arr_int = new int[10];
+            int flag_byte = 0;
+            int flag_short = 0;
+            int flag_int = 0;
+            long count = 0;
+            Random rnd = new Random();
+            
+          while (flag_int<9) {
+                int rnd_Number = rnd.Next(2147483647);
+                if (rnd_Number>=255 & flag_byte<9)
             {
-                for (int j = 1; j < arr.Length-i; j++)
+                arr_byte[flag_byte] = (byte)rnd_Number;
+                flag_byte++;
+                count++;
+            }else if (rnd_Number >= 32767 & flag_short <9)
+            {
+                arr_short[flag_short] = (short)rnd_Number;
+                flag_short++;
+                count++;
+            }
+            else if (rnd_Number >= 2147483647 & flag_int < 9)
                 {
-                    flag = false; 
-                    if (arr[j-1] > arr[j])
-                    {
-                        temp = arr[j];
-                        arr[j] = arr[j-1];
-                        arr[j-1] = temp;
-                        flag = true;
-                    }
+                    arr_int[flag_int] = rnd_Number;
+                    flag_int++;
+                    count++;
                 }
-                if (flag == false)
-                {
-                    break;
-                } 
-            }
-            for (int i = 0; i < arr.Length; i++)
-            {
-                Console.WriteLine("b[" + i + "] = " + arr[i]);
-            }
+          }
+          
+           
+            Console.WriteLine(flag_byte+flag_short+flag_int );
         }
     }
 }
