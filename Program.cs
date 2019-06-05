@@ -6,38 +6,47 @@ namespace HomeWork4_2
     {
         static void Main(string[] args)
         {
-            byte[] arr_byte = new byte[10];
+            sbyte[] arr_sbyte = new sbyte[10];
             short[] arr_short = new short[10];
             int[] arr_int = new int[10];
-            int flag_byte = 0;
+            int flag_sbyte = 0;
             int flag_short = 0;
             int flag_int = 0;
-            long count = 0;
+            int count = 0;
             Random rnd = new Random();
-            
-          while (flag_int<9) {
-                int rnd_Number = rnd.Next(2147483647);
-                if (rnd_Number>=255 & flag_byte<9)
+            do
             {
-                arr_byte[flag_byte] = (byte)rnd_Number;
-                flag_byte++;
-                count++;
-            }else if (rnd_Number >= 32767 & flag_short <9)
-            {
-                arr_short[flag_short] = (short)rnd_Number;
-                flag_short++;
-                count++;
-            }
-            else if (rnd_Number >= 2147483647 & flag_int < 9)
+                int rnd_Number = rnd.Next();
+                if (flag_sbyte < 10 && rnd_Number <= sbyte.MaxValue)
                 {
-                    arr_int[flag_int] = rnd_Number;
-                    flag_int++;
-                    count++;
+                    arr_sbyte[flag_sbyte++] = (sbyte)rnd_Number;
                 }
-          }
-          
-           
-            Console.WriteLine(flag_byte+flag_short+flag_int );
+                else if (flag_short < 10 && rnd_Number <= short.MaxValue)
+                {
+                    arr_short[flag_short++] = (short)rnd_Number; 
+                }
+                else if (flag_int < 10)
+                {
+                    arr_int[flag_int++] = rnd_Number;
+                }
+                count++;
+            } while (flag_sbyte<10 || flag_short<10 || flag_int<10);
+            for (int i = 0; i < arr_sbyte.Length; i++)
+            {
+                Console.Write(arr_sbyte[i]+" ");
+            }
+            Console.WriteLine("");
+            for (int i = 0; i < arr_short.Length; i++)
+            {
+                Console.Write(arr_short[i] + " ");
+            }
+            Console.WriteLine("");
+            for (int i = 0; i < arr_int.Length; i++)
+            {
+                Console.Write(arr_int[i] + " ");
+            }
+            Console.WriteLine("");
+            Console.WriteLine(count);
         }
     }
 }
