@@ -1,52 +1,196 @@
 ﻿using System;
 
-namespace HomeWork4_2
+namespace HomeWork4_3
 {
     class Program
     {
         static void Main(string[] args)
-        {
-            sbyte[] arr_sbyte = new sbyte[10];
-            short[] arr_short = new short[10];
-            int[] arr_int = new int[10];
-            int flag_sbyte = 0;
-            int flag_short = 0;
-            int flag_int = 0;
-            int count = 0;
+        {/*
+            char[] arr = new char[10];
+            arr[0] = '@';
+            for (int i = 1; i < arr.Length; i++)
+            {
+                arr[i] = '_';
+            }
+            */
+            //----------------------------------------
+            Boolean finish = true;
+            char temp = ' ';
+            int hp = 50;
+            /*
+            // Генерация рандомного '*' '+'
             Random rnd = new Random();
+            int rnd_mines = rnd.Next(1,arr.Length-2);
+            arr[rnd_mines] ='*';
+           
+            int rnd_heal = rnd.Next(1, arr.Length - 2);
+            arr[rnd_heal] = '+';
+           
+
             do
             {
-                int rnd_Number = rnd.Next();
-                if (flag_sbyte < 10 && rnd_Number <= sbyte.MaxValue)
+                int rnd_heal = rnd.Next(1, arr.Length - 2);
+                if (rnd_heal != rnd_mines)
                 {
-                    arr_sbyte[flag_sbyte++] = (sbyte)rnd_Number;
+                    arr[rnd_heal] = '+';
                 }
-                else if (flag_short < 10 && rnd_Number <= short.MaxValue)
+                else
                 {
-                    arr_short[flag_short++] = (short)rnd_Number; 
+                    rnd_heal = rnd.Next(1,arr.Length - 2);
+                    arr[rnd_heal] = '+';
+                    finish = false;
                 }
-                else if (flag_int < 10)
-                {
-                    arr_int[flag_int++] = rnd_Number;
-                }
-                count++;
-            } while (flag_sbyte<10 || flag_short<10 || flag_int<10);
-            for (int i = 0; i < arr_sbyte.Length; i++)
+                
+            } while (finish==false);
+
+    */
+            finish = true;
+            //test
+            char[] arr = {'@','+','*','_','_','_','_','_','_','_'};
+            do
             {
-                Console.Write(arr_sbyte[i]+" ");
+                if (arr[arr.Length - 1] == '@')
+                {
+                    finish = false;
+                    break;
+                }
+                // Вивод масива
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Console.Write(arr[i] + "");
+                    
+                }
+                Console.WriteLine("");
+                Console.WriteLine("0123456789");
+                Console.WriteLine("Введите действие: a - движение влево, d - движение вправо.");
+
+                string run = Console.ReadLine();
+                if (run == "a" && arr[0]!='@')
+                {
+                    temp = arr[0];
+                    for (int i = 0; i < arr.Length-1; i++)
+                    {
+                        if ((arr[i+1] == '*' && arr[i +2] == '@'))
+                        {
+                            arr[i + 1] = '@';
+                            arr[i - 2] = '_';
+                            hp -= 40;
+                            i += 2;
+                            continue;
+                        }
+                        else if ((arr[i+1] == '+' && arr[i +2] == '@'))
+                        {
+
+                            arr[i +1] = '@';
+                            arr[i +2] = '_';
+                            hp += 40;
+                            i += 2;
+                            continue;
+                        }
+                        else if ((arr[i + 1] == '*' && arr[i + 2] != '+') || (arr[i + 1] == '+' && arr[i + 2] != '*'))
+                        {
+                            arr[i] = arr[i + 2];
+                            i++;
+                            continue;
+                        }
+                        else if ((arr[i + 1] == '*' && arr[i + 2] == '+') || (arr[i + 1] == '+' && arr[i + 2] == '*'))
+                        {
+                            arr[i] = arr[i + 3];
+                            i+= 2;
+                            continue;
+                        }
+                        
+                        arr[i] = arr[i + 1];
+                    }
+                    arr[arr.Length - 1] = temp;
+                    hp -= 5;
+                }else if (run == "d")
+                {
+                    temp = arr[arr.Length-1];
+                    for (int i = arr.Length - 1; i >0; i--)
+                    {/*
+                        if (arr[i - 1] == '*' && arr[i - 2] == '+' && arr[i - 3] == '@')
+                        {
+                            arr[i - 2] = arr[i - 3];
+                            arr[i - 3] = '_';
+                            hp += 40;
+                            Console.WriteLine(i + "  1");
+                            i++;
+                           
+                           
+                        }
+                        else if (arr[i - 1] == '+' && arr[i - 2] == '*' && arr[i - 3] == '@')
+                        {
+                            arr[i - 2] = arr[i - 3];
+                            arr[i - 3] = '_';
+                            hp -= 40;
+                            Console.WriteLine(i + "  2");
+                            i++;
+                            
+                          
+                        }
+                       else if (arr[i - 1] == '*' && arr[i - 2] != '+'&& arr[i - 3] != '@')
+                        {
+                            arr[i] = arr[i - 2];
+                            Console.WriteLine(i + "  3");
+                            i--;
+                            
+                        }
+                       else if (arr[i - 1] == '+' && arr[i - 2] != '*' && arr[i - 3] != '@')
+                        {
+                            arr[i] = arr[i - 2];
+                            Console.WriteLine(i + "  3.1");
+                            i--;
+
+                          
+                        }
+                        else if ((arr[i - 1] == '*' && arr[i - 2] == '@'))
+                        {
+                            arr[i - 1] = '@';
+                            arr[i - 2] = '_';
+                            hp -= 40;
+                            Console.WriteLine(i + "  4");
+                            i --;
+                         
+                            
+                        }
+                        else if ((arr[i - 1] == '+' && arr[i - 2] == '@'))
+                        {
+
+                            arr[i - 1] = '@';
+                            arr[i - 2] = '_';
+                            hp += 40;
+                            Console.WriteLine(i + "  5");
+                            i --;
+                           
+                            
+                        }
+                        else if ((arr[i - 1] == '*' && arr[i - 2] == '+') || (arr[i - 1] == '+' && arr[i - 2] == '*'))
+                        {
+                            arr[i] = arr[i - 3];
+                            Console.WriteLine(i + "  6");
+                            i -= 2;
+                    
+                        }
+                        else
+                        {
+                            arr[i] = arr[i - 1];
+                            Console.WriteLine(i + "  1");
+                        }
+                        */
+                        arr[i] = arr[i - 1];
+                    }
+                    arr[0] = temp;
+                    hp -= 5;
+                }
+                    
+            } while (finish && hp>0);
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i] + "");
             }
             Console.WriteLine("");
-            for (int i = 0; i < arr_short.Length; i++)
-            {
-                Console.Write(arr_short[i] + " ");
-            }
-            Console.WriteLine("");
-            for (int i = 0; i < arr_int.Length; i++)
-            {
-                Console.Write(arr_int[i] + " ");
-            }
-            Console.WriteLine("");
-            Console.WriteLine(count);
+            Console.WriteLine("Game Over");
         }
     }
 }
