@@ -1,28 +1,17 @@
 ﻿using System;
 
-namespace HomeWork2
+namespace HomeWork5_1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int discount = 0;
-            ushort total = 357;
-            if (total >= 500)
+            int[] arr = new int[12];
+            for (int i = 0; i < arr.Length; i++)
             {
-                discount = 7;
+                arr[i] = 30 + ((i + 1) + ((i + 1) / 8)) % 2;
+                Console.WriteLine(i+1 +" month - "+arr[i]);
             }
-            else if (total >= 400)
-            {
-                discount = 5;
-
-            }
-            else if (total >= 300)
-            {
-                discount = 3;
-                
-            }
-            Console.WriteLine("Скидка:" + discount + "; Сума к оплате:" + (total - ((total*discount)/100.00)) + ";");
         }
     }
 }
