@@ -1,40 +1,84 @@
 ﻿using System;
 
-namespace Home_Work5_2
+namespace HomeWork6_1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            char[][] arr = new char[15][];
-            for (int i = 0; i < arr.Length; i++)
+            // Ввод данних
+            Console.WriteLine("Enter last first Surname: ");
+            string lastfirstsurname = Console.ReadLine(); 
+            string tempString = "";
+            Boolean Space = false;
+            // Удаляем ненужные пробелы
+            lastfirstsurname = lastfirstsurname.Trim();
+            for (int i = 0; i < lastfirstsurname.Length; i++)
             {
-                char[] temp = new char[15];
-                for (int j = 0; j < temp.Length; j++)
+                //если пробел..
+                if (lastfirstsurname[i] == ' ')
                 {
-                    if (i==0||i==arr.Length-1||j==0||j==temp.Length-1||(i==(arr.Length-1)/2&&j==(temp.Length-1)/2) || (i == (arr.Length - 1) / 2 && j == ((temp.Length - 1) / 2)+1) || (i == (arr.Length - 1) / 2 && j == ((temp.Length - 1) / 2) - 1) || (i == ((arr.Length - 1) / 2)+1 && j == (temp.Length - 1) / 2) || (i == ((arr.Length - 1) / 2)- 1 && j == (temp.Length - 1) / 2))
+                    //если перед этим тоже был пробел..
+                    if (Space)
                     {
-                        temp[j] = '*';
-                    }else
+                        //следующая итерация 
+                        continue;
+                        
+
+                    }
+                    else
                     {
-                        temp[j] = ' '; 
+                        //если перед этим пробелом небыло устанавливаем флаг первого пробела
+                        Space = true;
+                        tempString += lastfirstsurname[i];
                     }
                    
                 }
-                arr[i] = temp;
-             
-            }
-            for (int i = 0; i < arr.Length; i++)
-            {
-
-                for (int j = 0; j < arr[i].Length; j++)
+                else
                 {
-
-                    Console.Write(arr[i][j] + "");
+                    //если символ не пробел то убираем флаг первого пробела
+                    Space = false;
+                    tempString += lastfirstsurname[i];
                 }
-
-                Console.WriteLine("");
             }
+            lastfirstsurname = tempString;
+            tempString = "";
+            Console.WriteLine(tempString);
+            //Розбивка на слова 
+            string[] words = lastfirstsurname.Split(new char[] { ' ' });
+            lastfirstsurname = "";
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (i==0)
+                {
+                    for (int j = 0; j < words[0].Length; j++)
+                    {
+                        if (j==0)
+                        {
+                            tempString += words[i][j].ToString().ToUpper();
+                        }
+                        else
+                        {
+                            tempString += words[i][j];
+                        }
+                    }
+                    words[i] = tempString;
+                }
+                else if (i == 1)
+                {
+                    words[1] = words[1].ToUpper().Remove(1,words[1].Length-1);
+                    words[1] = words[1] + '.';
+                   
+                }
+                else if (i == 2)
+                {
+                    words[2] = words[2].Remove(1, words[2].Length-1).ToUpper();
+                    words[2]=words[2] + '.';
+                   
+                }
+                lastfirstsurname += words[i]+" ";
+            }
+            Console.WriteLine(lastfirstsurname);
         }
     }
 }
