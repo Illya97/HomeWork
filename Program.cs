@@ -99,16 +99,17 @@ namespace HomeWork7
             Circle circle = new Circle();
             Square square = new Square();
             Triangle triangle = new Triangle();
-          
+            Boolean end1 = true;
+            int count = 0;
             do
             {
-                Boolean end1=true;
+                
                 Console.WriteLine("Circle - enter 1; Square - enter 2 ;Triangle - enter 3; Exit - enter 0. ");
                 string a = Console.ReadLine();
                 switch (a)
                 {
-                    case "1": circle.getInf();break;
-                    case "2": square.getInf();break;
+                    case "1": circle.getInf(); break;
+                    case "2": square.getInf(); break;
                     case "3": triangle.getInf(); break;
                     case "0":end1=false; break;
                     default:end1 = false; ;
