@@ -327,21 +327,39 @@ namespace Dota2
             Console.WriteLine(firstfiters.getInfo());
             Console.WriteLine(secondFiter.getInfo());
             Console.WriteLine("");
-
+          
             do
             {
                 Thread.Sleep(2000);
                 Console.WriteLine(firstfiters.getName()+ " to strike.");
                 firstfiters.Hit(secondFiter);
+                Console.WriteLine(firstfiters.getName() + " has " + firstfiters.getHealth() + " hp.");
+                Console.WriteLine(secondFiter.getName()+" has "+secondFiter.getHealth()+" hp.");
+                Console.WriteLine("");
                 Thread.Sleep(2000);
                 if (secondFiter.getHealth() < 0)
                 {
+                    secondFiter.setHealth(0);
                     break;
                 }
                 else
                 {
                     Console.WriteLine(secondFiter.getName() + " to strike.");
                     secondFiter.Hit(firstfiters);
+                    if (firstfiters.getHealth()>0)
+                    {
+                        Console.WriteLine(firstfiters.getName() + " has " + firstfiters.getHealth() + " hp.");
+                        Console.WriteLine(secondFiter.getName() + " has " + secondFiter.getHealth() + " hp.");
+                        Console.WriteLine("");
+                    }
+                    else
+                    {
+                        firstfiters.setHealth(0);
+                        Console.WriteLine(firstfiters.getName() + " has " + firstfiters.getHealth() + " hp.");
+                        Console.WriteLine(secondFiter.getName() + " has " + secondFiter.getHealth() + " hp.");
+                        Console.WriteLine("");
+                        break;
+                    } 
                 }
 
             } while (secondFiter.getHealth()>0&&firstfiters.getHealth()>0);
@@ -355,7 +373,6 @@ namespace Dota2
             }
             else
             {
-                secondFiter.setHealth(0);
                 Console.WriteLine("Won the battle " + firstfiters.getName() + ".");
                 Console.WriteLine("He has " + firstfiters.getHealth() + "hp.");
                 Console.WriteLine(secondFiter.getName() + " has " + secondFiter.getHealth() + "hp.");
